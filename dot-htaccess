@@ -1,0 +1,29 @@
+# When validate rewrite (delete "index.php/" from a URL);
+# a mention in addition to .htaccess
+
+# アドレスから index.php/ を外したい場合は
+# config.php の rewrite 使用を
+# 下の5行を .htaccess に加えて下さい。
+# RewtiteBase は URI。waku は動作させるモジュール名に変更します。
+# ex: http://nantoka.com/xoops/modules/waku/
+# --> RewriteBase /xoops/modules/waku
+# XOOPS の動作が http://サーバ名/ の場合は RewtiteBase を外す事ができます。
+# Apache で Rewrite が動作している場合に有効です。
+
+RewriteEngine on
+RewriteBase /modules/waku
+RewriteCond %{REQUEST_FILENAME} !-f
+RewriteCond %{REQUEST_FILENAME} !-d
+RewriteRule ^(.*)$ index.php/$1 [L,QSA]
+
+
+# use in "SAKURA no rental server"(Japan)
+
+# さくらのレンタルサーバ ではこちらの5行となります。
+# config.php の区切り(デミリタ)を "?" に設定して下さい。
+
+RewriteEngine on
+RewriteBase /modules/waku
+RewriteCond %{REQUEST_FILENAME} !-f
+RewriteCond %{REQUEST_FILENAME} !-d
+RewriteRule ^(.*)$ index.php?$1 [L,QSA]
